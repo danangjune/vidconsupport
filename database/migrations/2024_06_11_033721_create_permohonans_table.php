@@ -12,7 +12,7 @@ return new class extends Migration
     // database/migrations/xxxx_xx_xx_create_permohonan_table.php
     public function up()
     {
-        Schema::create('permohonan', function (Blueprint $table) {
+        Schema::create('permohonans', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
             $table->string('nip');
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('tanggal_acara');
             $table->string('tempat_acara');
             $table->time('waktu_acara');
-            $table->integer('peserta');
+            $table->string('peserta');
             $table->text('bentuk_dukungan');
             $table->boolean('dukungan_infrastruktur')->default(false);
             $table->string('status')->default('pending');

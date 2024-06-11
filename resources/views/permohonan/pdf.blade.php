@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Permohonan Dukungan Vidcon</title>
+    <title>Lampiran Permohonan Dukungan Vidcon</title>
 </head>
 <body>
     <h1>Permohonan Dukungan Vidcon</h1>
     <p>Nama: {{ $permohonan->nama }}</p>
+    <p>NIP: {{ $permohonan->nip }}</p>
     <p>OPD: {{ $permohonan->opd }}</p>
     <p>Hari Tanggal: {{ $permohonan->tanggal_acara }}</p>
     <p>Tempat Acara: {{ $permohonan->tempat_acara }}</p>

@@ -19,6 +19,7 @@ class PermohonanController extends Controller
 
     public function store(Request $request)
     {
+        try{
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
             'nip' => 'required|string|max:255',
@@ -28,11 +29,15 @@ class PermohonanController extends Controller
             'waktu_acara' => 'required|date_format:H:i',
             'peserta' => 'required|string',
             'bentuk_dukungan' => 'required|string',
-            'dukungan_infrastruktur' => 'sometimes|boolean',
+            'dukungan_infrastruktur' => 'required|boolean',
         ]);
 
         $permohonan = Permohonan::create($validated);
-
+        return redirect()->route('permohonan.create')->with('success', 'Permohonan berhasil dikirim.');
+        }catch (\Exception $e) {
+            // Tangkap dan cetak pesan kesalahan
+            dd($e->getMessage());
+        }
         // Buat PDF
         $pdf = PDF::loadView('permohonan.pdf', compact('permohonan'));
         $pdfPath = 'pdfs/' . $permohonan->id . '.pdf';
