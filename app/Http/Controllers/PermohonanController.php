@@ -38,22 +38,12 @@ class PermohonanController extends Controller
             // Tangkap dan cetak pesan kesalahan
             dd($e->getMessage());
         }
+        
         // Buat PDF
         $pdf = PDF::loadView('permohonan.pdf', compact('permohonan'));
         $pdfPath = 'pdfs/' . $permohonan->id . '.pdf';
         $pdf->save(storage_path('app/public/' . $pdfPath));
         $permohonan->update(['pdf_path' => $pdfPath]);
-
-        $pdf = PDF::loadView('permohonan.pdf', compact('permohonan'));
-        $pdfPath = 'pdfs/' . $permohonan->id . '.pdf';
-        $pdf->save(storage_path('app/public/' . $pdfPath));
-        $permohonan->update(['pdf_path' => $pdfPath]);
-
-        // Kirim email ke admin
-        Mail::to('admin@example.com')->send(new PermohonanNotification($permohonan));
-
-        // Kirim PDF ke pengguna
-        Mail::to($permohonan->email)->send(new PermohonanConfirmation($permohonan));
 
         return redirect()->route('permohonan.create')->with('success', 'Permohonan berhasil dikirim.');
     }
