@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Permohonan;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\PermohonanNotification;
-use App\Mail\PermohonanConfirmation;
 use PDF;
 
 class PermohonanController extends Controller
@@ -35,26 +32,20 @@ class PermohonanController extends Controller
             // Buat permohonan
             $permohonan = Permohonan::create($validated);
 
-            // Simpan PDF
+            // Buat PDF
             $pdf = PDF::loadView('permohonan.pdf', compact('permohonan'));
             $pdfPath = 'pdfs/' . $permohonan->id . '.pdf';
             $pdf->save(storage_path('app/public/' . $pdfPath));
             $permohonan->update(['pdf_path' => $pdfPath]);
 
-            // Redirect ke halaman terima kasih dengan data permohonan
+            // Simpan permohonan dalam sesi
             $request->session()->flash('permohonan', $permohonan);
+
             return redirect()->route('thankyou');
         } catch (\Exception $e) {
             // Tangkap dan cetak pesan kesalahan
             dd($e->getMessage());
         }
-    }
-
-    public function downloadPDF($id)
-    {
-        $permohonan = Permohonan::findOrFail($id);
-        $pdfPath = storage_path('app/public/' . $permohonan->pdf_path);
-        return response()->download($pdfPath);
     }
 
     public function index()
@@ -72,5 +63,18 @@ class PermohonanController extends Controller
         $permohonan->update(['status' => $validated['status']]);
 
         return redirect()->route('permohonan.index')->with('success', 'Status permohonan berhasil diperbarui.');
+    }
+
+    public function thankyou(Request $request)
+    {
+        $permohonan = $request->session()->get('permohonan');
+        return view('permohonan.thankyou', compact('permohonan'));
+    }
+
+    public function downloadPDF($id)
+    {
+        $permohonan = Permohonan::findOrFail($id);
+        $pdfPath = storage_path('app/public/' . $permohonan->pdf_path);
+        return response()->download($pdfPath);
     }
 }
