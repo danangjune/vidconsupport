@@ -9,14 +9,6 @@ class Permohonan extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nama', 
-        'nip', 
-        'opd', 
-        'tanggal_acara', 
-        'tempat_acara', 
-        'waktu_acara', 
-        'peserta', 
-        'bentuk_dukungan', 
-        'dukungan_infrastruktur',
+        'nama', 'nip', 'opd', 'tanggal_acara', 'tempat_acara', 'waktu_acara', 'peserta', 'bentuk_dukungan', 'dukungan_infrastruktur', 'status', 'pdf_path'
     ];
 }
