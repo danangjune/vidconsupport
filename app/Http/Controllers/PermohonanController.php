@@ -19,7 +19,7 @@ class PermohonanController extends Controller
         try {
             $validated = $request->validate([
                 'nama' => 'required|string|max:255',
-                'nip' => 'required|string|max:255',
+                'nip' => 'required|string|max:16',
                 'opd' => 'required|string|max:255',
                 'tanggal_acara' => 'required|date',
                 'tempat_acara' => 'required|string|max:255',
