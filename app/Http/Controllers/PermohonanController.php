@@ -26,7 +26,7 @@ class PermohonanController extends Controller
                 'waktu_acara' => 'required|date_format:H:i',
                 'peserta' => 'required|string',
                 'bentuk_dukungan' => 'required|string',
-                'dukungan_infrastruktur' => 'required|boolean',
+                'dukungan_infrastruktur' => 'sometimes|boolean',
             ]);
 
             // Buat permohonan
