@@ -6,6 +6,10 @@ Route::get('/', function () {
     return view('permohonan.create');
 });
 
+Route::get('/admin', function () {
+    return view('admin.index');
+});
+
 use App\Http\Controllers\PermohonanController;
 
 Route::middleware(['web'])->group(function () {
